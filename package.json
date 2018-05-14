@@ -1,0 +1,22 @@
+{
+  "name": "mmm-npmw",
+  "version": "1.0.0",
+  "description": "Weather module for MM using NPM package weather-js",
+  "main": "MMM-NPMW.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mykle1/MMM-NPMW.git"
+  },
+  "author": "Mykle1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mykle1/MMM-NPMW/issues"
+  },
+  "homepage": "https://github.com/mykle1/MMM-NPMW#readme",
+  "dependencies": {
+    "weather-js": "2.0.0"
+  }
+}
