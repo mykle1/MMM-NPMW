@@ -8,7 +8,8 @@ Module.register("MMM-NPMW", {
 
     // Module config defaults.
     defaults: {
-		tempUnits: "C",		                      // C and km or F and miles 
+		tempUnits: "",		                      // C  or F
+        cityStateOrZip: "",                       // City and state OR zipcode
         useHeader: false,                         // true if you want a header      
         header: "NPM-Weather",          // Any text you want. useHeader must be true
         maxWidth: "300px",
@@ -27,7 +28,8 @@ Module.register("MMM-NPMW", {
     start: function() {
         Log.info("Starting module: " + this.name);
 
-
+        this.sendSocketNotification("CONFIG", this.config);
+        
         //  Set locale.
         this.NPMW = {};
         this.scheduleUpdate();
@@ -58,6 +60,9 @@ Module.register("MMM-NPMW", {
 		// summary of weather at this moment
         var summary = document.createElement("div");
         summary.classList.add("small", "bright", "summary");
+        
+        if (this.config.tempUnits != "C") {
+        
 	    summary.innerHTML =
                 '<marquee behavior="scroll" direction="left" scrollamount="3">'
                 + NPMW[0].current.skytext + " right now"
@@ -83,6 +88,36 @@ Module.register("MMM-NPMW", {
                 +'</marquee>';
             
 			wrapper.appendChild(summary);
+            
+        } else  { 
+            
+        summary.innerHTML =
+                '<marquee behavior="scroll" direction="left" scrollamount="3">'
+                + NPMW[0].current.skytext + " right now"
+                + " and " + NPMW[0].current.temperature 
+                + "°C at " + moment().local().format("h:mm A") + " . &nbsp "
+                + " Feels like " +  NPMW[0].current.feelslike  + "°C. &nbsp "
+                + " " + NPMW[0].current.humidity + "% humidity. &nbsp "
+                + " " + NPMW[0].current.winddisplay + " wind. &nbsp"
+            
+            
+                + " " + NPMW[0].forecast[2].day + " ~ " + NPMW[0].forecast[2].skytextday + ", &nbsp "
+                + " " + NPMW[0].forecast[2].high + "/" + NPMW[0].forecast[2].low
+                + " " + "with a " + NPMW[0].forecast[2].precip + "% chance of precip. &nbsp "
+                
+                + " " + NPMW[0].forecast[3].day + " ~ " + NPMW[0].forecast[3].skytextday + ", &nbsp "
+                + " " + NPMW[0].forecast[3].high + "/" + NPMW[0].forecast[3].low
+                + " " + "with a " + NPMW[0].forecast[3].precip + "% chance of precip. &nbsp "
+                
+                + " " + NPMW[0].forecast[4].day + " ~ " + NPMW[0].forecast[4].skytextday + ", &nbsp "
+                + " " + NPMW[0].forecast[4].high + "/" + NPMW[0].forecast[4].low
+                + " " + "with a " + NPMW[0].forecast[4].precip + "% chance of precip. &nbsp "
+                
+                +'</marquee>';
+            
+			wrapper.appendChild(summary);
+            
+        }
 
         return wrapper;
 		
@@ -91,7 +126,7 @@ Module.register("MMM-NPMW", {
 
     processNPMW: function(data) {
         this.NPMW = data;
-        console.log(this.NPMW);
+//        console.log(this.NPMW);
         this.loaded = true;
     },
     

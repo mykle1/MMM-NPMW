@@ -24,10 +24,10 @@ module.exports = NodeHelper.create({
         
         var self = this;
  
-        weather.find({search: 'Staten Island, NY', degreeType: 'F'}, function(err, result) {
+        weather.find({search: this.config.cityStateOrZip, degreeType: this.config.tempUnits}, function(err, result) {
       if(err) console.log(err);
  
-        console.log(JSON.stringify(result, null, 2));
+//        console.log(JSON.stringify(result, null, 2));
           self.sendSocketNotification("NPMW_RESULT", result);  
     });
 
@@ -35,8 +35,10 @@ module.exports = NodeHelper.create({
     
 
     socketNotificationReceived: function(notification, payload) {
-        if (notification === 'GET_NPMW') {
+        if(notification === 'CONFIG'){
+          this.config = payload;
+      } else if (notification === 'GET_NPMW') {
             this.getNPMW(payload);
         }
-    }
+    },
 });
