@@ -1,9 +1,6 @@
 ## MMM-NPMW
 
-**Weather using NPM package weather**
-
-I just didn't feel like making WWI display both ways.
-So this is designed for top or bottom bar position.
+**Weather using NPM package weather-js**
 
 ## Why would you use this module?
 
