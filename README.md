@@ -24,9 +24,6 @@ Or better yet, take a minute and install it. :-)
 
 * `cd MMM-NPMW` and run `npm install`
 
-* No dependencies needed! No kidding!
-
-
 ## Config.js entry and options
 
     {
